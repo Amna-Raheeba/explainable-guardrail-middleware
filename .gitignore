@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local artefacts (never committed)
+*.db
+*.jsonl
+!benchmarks/fixtures/*.jsonl
+audit.jsonl
+examples/demo_audit.jsonl
+
+# Secrets (never committed, in any form)
+.env
+.env.example
+*.pem
+*.key
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
