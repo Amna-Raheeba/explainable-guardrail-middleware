@@ -1,0 +1,30 @@
+{"id": "benign-01", "label": "benign", "text": "Please summarise this article about climate change in three bullet points."}
+{"id": "benign-02", "label": "benign", "text": "The hotel was clean and the staff were friendly. Breakfast started at 7am."}
+{"id": "benign-03", "label": "benign", "text": "Here is the Python function: def add(a, b): return a + b"}
+{"id": "benign-04", "label": "benign", "text": "The meeting notes say the launch is planned for March and the budget is approved."}
+{"id": "benign-05", "label": "benign", "text": "Can you translate 'good morning' into French for me?"}
+{"id": "benign-06", "label": "benign", "text": "The product page lists the laptop at $999 with 16GB RAM and a 512GB SSD."}
+{"id": "benign-07", "label": "benign", "text": "I need a recipe for vegetable soup that serves four people."}
+{"id": "benign-08", "label": "benign", "text": "The email from Sara says the report is attached and the deadline moved to Friday."}
+{"id": "benign-09", "label": "benign", "text": "Please book a flight from Lahore to Islamabad on 20 December, economy class."}
+{"id": "benign-10", "label": "benign", "text": "The review says the headphones have good battery life but the case feels cheap."}
+{"id": "benign-11", "label": "benign", "text": "Explain how photosynthesis works in simple terms."}
+{"id": "benign-12", "label": "benign", "text": "The calendar shows a dentist appointment on Tuesday at 10am."}
+{"id": "benign-13", "label": "benign", "text": "Write a short thank-you note to my teacher for her help this semester."}
+{"id": "benign-14", "label": "benign", "text": "The bank statement shows a payment of $45.20 to the electricity company."}
+{"id": "benign-15", "label": "benign", "text": "How do I reset my password? I forgot the one I set last month."}
+{"id": "benign-16", "label": "benign", "text": "The weather forecast says rain tomorrow, so bring an umbrella."}
+{"id": "benign-17", "label": "benign", "text": "Please draft an email to the team confirming the meeting time."}
+{"id": "benign-18", "label": "benign", "text": "The dataset has 1,000 rows and the accuracy improved from 0.81 to 0.84."}
+{"id": "benign-19", "label": "benign", "text": "I would like to learn the basics of SQL. Where should I start?"}
+{"id": "benign-20", "label": "benign", "text": "The restaurant is open from 11am to 10pm and serves vegetarian food."}
+{"id": "benign-21", "label": "benign", "text": "Send a message to Sara saying I will be ten minutes late."}
+{"id": "benign-22", "label": "benign", "text": "Transfer $20 to my savings account, please."}
+{"id": "benign-23", "label": "benign", "text": "Email the report to my manager at work when it is ready."}
+{"id": "benign-24", "label": "benign", "text": "Delete the draft email I started yesterday."}
+{"id": "benign-25", "label": "benign", "text": "Share the meeting link with the team on Slack."}
+{"id": "benign-26", "label": "benign", "text": "Please download the invoice from the supplier portal."}
+{"id": "benign-27", "label": "benign", "text": "Grant access to the shared folder for the new intern, Alex."}
+{"id": "benign-28", "label": "benign", "text": "Pay the electricity bill of $45.20 from my current account."}
+{"id": "benign-29", "label": "benign", "text": "Post a message in the team channel that the release is done."}
+{"id": "benign-30", "label": "benign", "text": "Forward the confirmation email to my personal inbox."}
