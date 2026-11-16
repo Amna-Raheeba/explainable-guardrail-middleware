@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "explainable-guardrail-middleware"
+version = "0.1.0"
+description = "A glass-box guardrail for LLM agents: every verdict ships with a reason trace (rule, span, confidence) and an immutable audit record, plus a memory-write admission screen."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Amna Raheeba" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dashboard = ["streamlit"]
+
+[project.scripts]
+guardrail = "explainable_guardrail_middleware.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["explainable_guardrail_middleware*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
