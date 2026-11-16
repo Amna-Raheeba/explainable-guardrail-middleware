@@ -1,0 +1,176 @@
+{
+  "method": "text-level screening at the tool_output checkpoint; no LLM agent, no tool execution (see benchmarks/fixtures/README.md)",
+  "sets": {
+    "agentdojo_attacks": {
+      "n": 230,
+      "decisions": {
+        "block": 172,
+        "review": 37,
+        "allow": 21
+      },
+      "caught": 209,
+      "caught_rate": 0.9087,
+      "block_rate": 0.7478,
+      "miss_rate": 0.0913,
+      "latency_ms_median": 0.21,
+      "latency_ms_p95": 0.55,
+      "by_group": {
+        "bare_goal": {
+          "n": 46,
+          "caught_rate": 0.7609,
+          "block_rate": 0.3696
+        },
+        "direct": {
+          "n": 46,
+          "caught_rate": 0.7826,
+          "block_rate": 0.3696
+        },
+        "ignore_previous": {
+          "n": 46,
+          "caught_rate": 1.0,
+          "block_rate": 1.0
+        },
+        "important_instructions": {
+          "n": 46,
+          "caught_rate": 1.0,
+          "block_rate": 1.0
+        },
+        "system_message": {
+          "n": 46,
+          "caught_rate": 1.0,
+          "block_rate": 1.0
+        }
+      }
+    },
+    "agentdojo_benign": {
+      "n": 109,
+      "decisions": {
+        "allow": 109
+      },
+      "caught": 0,
+      "caught_rate": 0.0,
+      "block_rate": 0.0,
+      "miss_rate": 1.0,
+      "latency_ms_median": 0.07,
+      "latency_ms_p95": 0.15,
+      "by_group": {
+        "all": {
+          "n": 109,
+          "caught_rate": 0.0,
+          "block_rate": 0.0
+        }
+      }
+    },
+    "injecagent_attacks": {
+      "n": 1054,
+      "decisions": {
+        "block": 340,
+        "review": 541,
+        "allow": 173
+      },
+      "caught": 881,
+      "caught_rate": 0.8359,
+      "block_rate": 0.3226,
+      "miss_rate": 0.1641,
+      "latency_ms_median": 0.25,
+      "latency_ms_p95": 0.39,
+      "by_group": {
+        "data_stealing": {
+          "n": 544,
+          "caught_rate": 0.6875,
+          "block_rate": 0.5312
+        },
+        "direct_harm": {
+          "n": 510,
+          "caught_rate": 0.9941,
+          "block_rate": 0.1
+        }
+      }
+    },
+    "injecagent_benign": {
+      "n": 1054,
+      "decisions": {
+        "allow": 1054
+      },
+      "caught": 0,
+      "caught_rate": 0.0,
+      "block_rate": 0.0,
+      "miss_rate": 1.0,
+      "latency_ms_median": 0.04,
+      "latency_ms_p95": 0.05,
+      "by_group": {
+        "all": {
+          "n": 1054,
+          "caught_rate": 0.0,
+          "block_rate": 0.0
+        }
+      }
+    },
+    "memory_poison_synthetic": {
+      "attack": {
+        "n": 15,
+        "decisions": {
+          "reject": 7,
+          "quarantine": 8
+        },
+        "rejected_or_quarantined_rate": 1.0
+      },
+      "benign": {
+        "n": 10,
+        "decisions": {
+          "admit": 10
+        },
+        "rejected_or_quarantined_rate": 0.0
+      }
+    },
+    "benign_all": {
+      "n": 1203,
+      "decisions": {
+        "allow": 1203
+      },
+      "caught": 0,
+      "caught_rate": 0.0,
+      "block_rate": 0.0,
+      "miss_rate": 1.0,
+      "latency_ms_median": 0.04,
+      "latency_ms_p95": 0.07,
+      "by_group": {
+        "all": {
+          "n": 1203,
+          "caught_rate": 0.0,
+          "block_rate": 0.0
+        }
+      }
+    },
+    "benign_tool_output": {
+      "n": 24,
+      "decisions": {
+        "allow": 20,
+        "review": 4
+      },
+      "caught": 4,
+      "caught_rate": 0.1667,
+      "block_rate": 0.0,
+      "miss_rate": 0.8333,
+      "latency_ms_median": 0.11,
+      "latency_ms_p95": 0.29,
+      "by_group": {
+        "all": {
+          "n": 24,
+          "caught_rate": 0.1667,
+          "block_rate": 0.0
+        }
+      }
+    }
+  },
+  "summary": {
+    "agentdojo_attacks_caught": 0.9087,
+    "agentdojo_attacks_blocked": 0.7478,
+    "injecagent_attacks_caught": 0.8359,
+    "injecagent_attacks_blocked": 0.3226,
+    "benign_false_positive_rate": 0.0,
+    "benign_tool_output_false_positive_rate": 0.1667,
+    "memory_poison_stopped": 1.0,
+    "memory_benign_admitted": 1.0
+  }
+}
