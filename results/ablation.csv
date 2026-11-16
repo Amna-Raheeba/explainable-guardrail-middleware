@@ -1,0 +1,4 @@
+config,agentdojo_caught,injecagent_caught,benign_tool_output_fpr,benign_user_fpr,classifier_train_accuracy,classifier_test_accuracy,classifier_test_n
+prompt-injection rules only,0.7087,0.0,0.0,0.0,,,
+all regex rules (default),0.9087,0.8359,0.1667,0.0,,,
+lexical classifier only (held-out test),,,,,0.9903,0.9816,490
