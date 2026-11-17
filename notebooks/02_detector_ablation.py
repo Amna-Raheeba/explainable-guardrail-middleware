@@ -24,10 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from explainable_guardrail_middleware import Guardrail, Policy  # noqa: E402
 from explainable_guardrail_middleware.classifier import LexicalClassifier  # noqa: E402
-from explainable_guardrail_middleware.detectors import (  # noqa: E402
-    detect_prompt_injection,
-    detect_tool_output_injection,
-)
+from explainable_guardrail_middleware.detectors import detect_prompt_injection  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parent.parent
