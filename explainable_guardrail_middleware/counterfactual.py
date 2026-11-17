@@ -158,10 +158,8 @@ class PassProbe:
         if self.original_decision != Decision.BLOCK:
             return f"{head}: not blocked — nothing to probe."
         if not self.edits:
-            return (
-                f"{head}: no minimal edit found. {self.note or 'No single-span '
-                'edit lowered the score.'}"
-            )
+            note = self.note or "No single-span edit lowered the score."
+            return f"{head}: no minimal edit found. {note}"
         tail = (
             f"-> {self.edited_decision.value.upper()} "
             f"(score {self.edited_score:.2f}) with {len(self.edits)} edit(s), "
