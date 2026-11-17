@@ -61,6 +61,43 @@
   "allow" — a no-op. Fixed to tamper the BLOCK record; the chain
   correctly reports the break at line 2.
 
+## 2026-11-17 — E06: counterfactual pass probe (notebook 03, results/probe_results.json)
+
+- New: for a BLOCKED verdict, the probe finds the minimal span-level
+  edit that lets it pass, verified by re-running the checkpoint on the
+  edited text. PII redacts to a typed placeholder; GH-01 re-routes to
+  a goal-mentioned destination or removes it; everything else removes
+  the matched span. GH-02 has no edit by design (its span is the whole
+  action; deleting the action is not a fix).
+- Measured on all 542 blocked cases: **535 pass (98.7%)**, 100% of
+  passes verified ALLOW on an independent re-run; 7 partial (1.3%);
+  0 with no edit; median edit 43 chars, median 1 edit; median probe
+  latency 0.6 ms. AgentDojo 169/172 (98.3%, median 79 chars / 2
+  edits); InjecAgent 340/340 (100%); synthetic actions 20/24 (83.3%);
+  synthetic PII leaks 6/6 (100%).
+- The first design stopped at REVIEW and reported 118 partials
+  (21.8%). That was wrong: a REVIEW-level finding is still a removable
+  span, so the probe now continues past REVIEW until ALLOW. The 7
+  remaining partials are 4 GH-02 plus 3 AgentDojo cases where removing
+  a span re-joins the text into a new REVIEW match at the same
+  confidence (deleting an imperative sentence joins "Do ..." to "...
+  instead", firing PI-16) — the probe only edits finding spans, never
+  sub-spans, so it cannot break that join. Documented as a limitation,
+  not hidden.
+- Two bugs found while building it: the PII edit description reused
+  the finding's explanation sentence and read as garbled prose (fixed
+  with a clean per-rule label); `PassProbe.explain()` omitted the
+  note, so the CLI never said *why* a probe stopped at REVIEW (fixed —
+  the note is now printed).
+- Audit gaps fixed in the same pass (pyflakes): unused import in
+  guardrail.py, unused `sys` in `__main__.py`, dead `action_lower` in
+  detectors.py, f-strings without placeholders in verdicts.py and
+  examples/demo_agent_loop.py, unused imports in notebook 02 and the
+  fixture-extraction script. The dashboard had no AppTest pinning it —
+  `tests/test_dashboard_app.py` now runs the real app (0 exceptions)
+  and the probe section; the Check-text tab shows the minimal safe
+  alternative for every BLOCK.
+
 ## Open questions
 
 - What is the right threshold pair for production traffic? 0.75/0.45

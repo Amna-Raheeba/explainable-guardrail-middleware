@@ -49,3 +49,24 @@ split of the fixture texts (seed 20261116, n=490 held out). Reported
 in `results/ablation.csv`. Caveat: train and test come from the same
 benchmark text, so this measures fit to these fixtures, not
 generalisation to new attack families.
+
+## Counterfactual probe rates
+
+Measured in `notebooks/03_counterfactual_probe.py` over every BLOCKED
+case (542: 172 AgentDojo + 340 InjecAgent at the tool_output checkpoint,
+24 hand-built goal/action pairs, 6 hand-built PII leaks).
+
+- **Pass rate**: fraction of blocked cases whose probe edit re-verdicts
+  ALLOW. Overall 98.7% (535/542).
+- **Verified pass rate**: of those passes, the fraction confirmed ALLOW
+  by an *independent* re-run of the same checkpoint on the edited text
+  (a second check, separate from the re-runs inside the probe).
+  100% (535/535) — a reported pass is a measured pass.
+- **Partial rate**: fraction reaching REVIEW only (1.3%, 7 cases) — 4
+  GH-02 (wrong goal, unfixable by span edits by design) and 3 where
+  span removal re-joins the text into a new REVIEW-level match at the
+  same confidence.
+- **Median edit size**: characters removed + inserted across the applied
+  edits. Overall 43 chars; median 1 edit. AgentDojo payloads need more
+  (79 chars, 2 edits) because they stack several rules.
+- **Probe latency**: median wall-clock ms per blocked case, 0.6 ms.

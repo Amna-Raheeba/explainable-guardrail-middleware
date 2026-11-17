@@ -28,6 +28,32 @@ user's own input. `check_action` runs goal-hijack and prompt-injection
 rules only (see `docs/architecture.md` §2 for why tool-output rules do
 not run on the agent's own proposal).
 
+## Counterfactual pass probe
+
+```python
+from explainable_guardrail_middleware import Guardrail
+
+probe = guardrail.probe_pass(text, "tool_output")
+probe = guardrail.probe_pass(action, "action", user_goal=goal)
+probe = guardrail.probe_pass(reply, "model_output", user_input=user_text)
+
+probe.passed            # edited text re-verdicts ALLOW (verified by re-running)
+probe.partial           # edited text re-verdicts REVIEW only
+probe.edited_text       # the minimally edited text (None when nothing was probed)
+probe.edits             # list[ProbeEdit]: kind, rule_id, span, original, replacement
+probe.edit_size         # total chars changed
+probe.attempts          # checkpoint re-runs spent searching
+probe.explain()         # plain-English account, edits + re-verdict
+probe.to_dict()         # JSON-safe dict
+```
+
+The probe is greedy and deterministic: highest-confidence finding
+first, smallest neutralisation per finding (remove the span; redact PII
+to a typed placeholder; re-route a GH-01 destination to one the goal
+mentions), continuing past REVIEW until ALLOW. GH-02 has no edit — its
+span is the whole action, and deleting the action is not a fix. A
+non-BLOCKED verdict returns a probe with no edits and a note.
+
 ## Memory gate
 
 ```python
@@ -86,9 +112,12 @@ but never BLOCK alone.
 
 ```bash
 python -m explainable_guardrail_middleware check "text" [--checkpoint user_input|tool_output|model_output] [--audit-log audit.jsonl]
+python -m explainable_guardrail_middleware probe "text" [--checkpoint user_input|tool_output|model_output|action] [--goal "user goal"] [--user-input "..."]
 python -m explainable_guardrail_middleware demo
 python -m explainable_guardrail_middleware memory "note" [--source web] [--author agent]
 python -m explainable_guardrail_middleware benchmark [--fixtures benchmarks/fixtures] [--out results/benchmark_results.json]
 ```
 
-`check` exits 0 on ALLOW, 1 otherwise. `memory` exits 0 on ADMIT, 1 otherwise.
+`check` exits 0 on ALLOW, 1 otherwise. `probe` exits 0 when the probe
+finds an edit that passes (ALLOW on re-run), 1 otherwise. `memory`
+exits 0 on ADMIT, 1 otherwise.
