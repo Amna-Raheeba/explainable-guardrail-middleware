@@ -7,12 +7,13 @@ results on AgentDojo / InjecAgent fixture subsets.
 
 from .audit import AuditLog
 from .classifier import LexicalClassifier
+from .counterfactual import PassProbe, ProbeEdit, probe_pass
 from .guardrail import Guardrail, Policy
 from .memory_gate import MemoryDecision, MemoryScreen, screen_memory_write
 from .pii import detect_pii, redact
 from .verdicts import Decision, Finding, ReasonTrace, Verdict
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
     "AuditLog",
     "Decision",
@@ -21,10 +22,13 @@ __all__ = [
     "LexicalClassifier",
     "MemoryDecision",
     "MemoryScreen",
+    "PassProbe",
     "Policy",
+    "ProbeEdit",
     "ReasonTrace",
     "Verdict",
     "detect_pii",
+    "probe_pass",
     "redact",
     "screen_memory_write",
 ]

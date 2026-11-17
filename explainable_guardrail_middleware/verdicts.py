@@ -65,8 +65,8 @@ class ReasonTrace:
         """One plain-English line per finding, most confident first."""
         if not self.findings:
             return [
-                f"ALLOW (score 0.00): no detector fired; "
-                f"nothing in the text matched any rule."
+                "ALLOW (score 0.00): no detector fired; "
+                "nothing in the text matched any rule."
             ]
         out = [
             f"{self.decision.value.upper()} (score {self.score:.2f}): "

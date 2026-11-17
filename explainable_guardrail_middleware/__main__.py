@@ -2,6 +2,7 @@
 
 Usage:
     python -m explainable_guardrail_middleware check "some text" [--checkpoint tool_output]
+    python -m explainable_guardrail_middleware probe "some text" [--checkpoint tool_output] [--goal "user goal"]
     python -m explainable_guardrail_middleware demo
     python -m explainable_guardrail_middleware memory "note to remember" --source tool_output
     python -m explainable_guardrail_middleware benchmark
@@ -11,7 +12,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 import time
 from pathlib import Path
 
@@ -67,6 +67,18 @@ def main(argv: list[str] | None = None) -> int:
     check.add_argument("--checkpoint", default="user_input", choices=list(_CHECKPOINTS))
     check.add_argument("--audit-log", default=None, help="append the verdict to this audit log")
 
+    probe = sub.add_parser(
+        "probe", help="find the minimal edit that lets a blocked text pass"
+    )
+    probe.add_argument("text")
+    probe.add_argument(
+        "--checkpoint",
+        default="user_input",
+        choices=["user_input", "tool_output", "model_output", "action"],
+    )
+    probe.add_argument("--goal", default="", help="user goal (for --checkpoint action)")
+    probe.add_argument("--user-input", default="", help="user input (for --checkpoint model_output)")
+
     sub.add_parser("demo", help="run the built-in demo")
 
     mem = sub.add_parser("memory", help="screen a proposed memory write")
@@ -88,6 +100,16 @@ def main(argv: list[str] | None = None) -> int:
             AuditLog(args.audit_log).append(verdict, args.text, context=args.checkpoint)
             print(f"logged to {args.audit_log} (record #{verdict.audit_id})")
         return 0 if verdict.decision.value == "allow" else 1
+
+    if args.command == "probe":
+        result = guardrail.probe_pass(
+            args.text,
+            args.checkpoint,
+            user_goal=args.goal,
+            user_input=args.user_input,
+        )
+        print(result.explain())
+        return 0 if result.passed else 1
 
     if args.command == "demo":
         return _demo()

@@ -30,7 +30,7 @@ from .detectors import (
     detect_prompt_injection,
     detect_tool_output_injection,
 )
-from .memory_gate import MemoryDecision, MemoryScreen, screen_memory_write
+from .memory_gate import MemoryScreen, screen_memory_write
 from .pii import detect_pii
 from .verdicts import Decision, Finding, Verdict
 
@@ -153,3 +153,30 @@ class Guardrail:
         session_id: str = "",
     ) -> MemoryScreen:
         return screen_memory_write(note, source=source, author=author, session_id=session_id)
+
+    def probe_pass(
+        self,
+        text: str,
+        checkpoint: str = "user_input",
+        *,
+        user_goal: str = "",
+        user_input: str = "",
+        max_edits: int = 8,
+    ):
+        """Probe a BLOCKED verdict for the minimal edit that lets it pass.
+
+        See ``counterfactual.probe_pass``: for a blocked verdict it finds
+        the smallest span-level edit (remove, redact, or re-route a
+        destination) that makes the same checkpoint re-verdict ALLOW,
+        verified by re-running the checkpoint on the edited text.
+        """
+        from .counterfactual import probe_pass as _probe
+
+        return _probe(
+            self,
+            text,
+            checkpoint,
+            user_goal=user_goal,
+            user_input=user_input,
+            max_edits=max_edits,
+        )

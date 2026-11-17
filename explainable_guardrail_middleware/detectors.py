@@ -203,7 +203,6 @@ def detect_goal_hijack(user_goal: str, proposed_action: str) -> list[Finding]:
     """Flag a proposed action whose destination or content is absent from the user's goal."""
     findings: list[Finding] = []
     goal_lower = user_goal.lower()
-    action_lower = proposed_action.lower()
 
     verbs = _IRREVERSIBLE.findall(proposed_action)
     if not verbs:
