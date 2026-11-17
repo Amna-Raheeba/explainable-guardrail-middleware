@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "explainable-guardrail-middleware"
-version = "0.1.0"
+version = "0.2.0"
 description = "A glass-box guardrail for LLM agents: every verdict ships with a reason trace (rule, span, confidence) and an immutable audit record, plus a memory-write admission screen."
 readme = "README.md"
 license = { text = "MIT" }
