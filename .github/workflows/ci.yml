@@ -16,3 +16,4 @@ jobs:
       - run: python -m explainable_guardrail_middleware demo
       - run: python -m explainable_guardrail_middleware benchmark --out /tmp/benchmark_results.json
       - run: python notebooks/02_detector_ablation.py
+      - run: python notebooks/03_counterfactual_probe.py
