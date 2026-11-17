@@ -47,7 +47,7 @@ def main() -> None:
     verdict = guardrail.check_tool_output(TOOL_OUTPUT)
     audit.append(verdict, TOOL_OUTPUT, context="tool_output")
     print(verdict.explain())
-    print(f"   -> agent does NOT act on this tool output.\n")
+    print("   -> agent does NOT act on this tool output.\n")
 
     print("2. The agent proposes a tool call — screen it against the user goal.")
     verdict = guardrail.check_action(USER_GOAL, PROPOSED_ACTION)
@@ -66,7 +66,7 @@ def main() -> None:
         user_input=USER_GOAL,
     )
     print(verdict.explain())
-    print(f"\nAudit log: examples/demo_audit.jsonl — verify with:")
+    print("\nAudit log: examples/demo_audit.jsonl — verify with:")
     print("  python -c \"from explainable_guardrail_middleware import AuditLog; "
           "print(AuditLog('examples/demo_audit.jsonl').verify())\"")
     print(f"Redacted excerpt of the attack, safe to show: {redact(TOOL_OUTPUT)[:120]}...")
