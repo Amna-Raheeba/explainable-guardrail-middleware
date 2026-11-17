@@ -36,6 +36,16 @@ def screen_text(text: str, checkpoint: str) -> dict:
     return verdict.to_dict()
 
 
+def probe_text(text: str, checkpoint: str, user_goal: str = "") -> dict:
+    """Probe a blocked verdict for the minimal edit that lets it pass.
+
+    Returns the probe as a JSON-safe dict (see counterfactual.PassProbe).
+    """
+    guardrail = Guardrail()
+    probe = guardrail.probe_pass(text, checkpoint, user_goal=user_goal)
+    return probe.to_dict()
+
+
 def screen_memory(note: str, source: str) -> dict:
     """Screen a memory write; returns decision + findings as plain data."""
     guardrail = Guardrail()

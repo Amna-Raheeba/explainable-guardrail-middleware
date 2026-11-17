@@ -29,6 +29,7 @@ from helpers import (
     highlight_spans,
     load_benchmark_results,
     memory_decision_label,
+    probe_text,
     redacted,
     screen_memory,
     screen_text,
@@ -94,6 +95,30 @@ with tab_check:
                 st.write("No detector fired. Nothing in the text matched any rule.")
             st.caption(f"Policy {verdict['policy_version']} · input hash "
                        f"`{verdict['input_sha256'][:16]}…`")
+            if decision == "BLOCK":
+                st.write("**Minimal safe alternative** — the smallest edit "
+                         "that lets this pass (counterfactual probe):")
+                probe = probe_text(text, checkpoint)
+                if probe["passed"]:
+                    st.success(
+                        f"Passes after {len(probe['edits'])} edit(s), "
+                        f"{probe['edit_size']} chars changed."
+                    )
+                elif probe["partial"]:
+                    st.warning(
+                        f"Reaches REVIEW only after {len(probe['edits'])} "
+                        f"edit(s) — better than BLOCK, not a pass."
+                    )
+                else:
+                    st.info(probe["note"] or "No minimal edit found.")
+                for edit in probe["edits"]:
+                    st.write(f"- **[{edit['rule_id']}]** {edit['description']}")
+                if probe["edited_text"] is not None:
+                    st.write("Edited text (verified: re-screening it gives "
+                             f"{probe['edited_decision'].upper()}):")
+                    st.code(probe["edited_text"])
+                if probe["note"]:
+                    st.caption(probe["note"])
 
 with tab_memory:
     st.subheader("Screen a memory write before it is stored")

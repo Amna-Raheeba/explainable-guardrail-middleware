@@ -14,7 +14,8 @@ streamlit run dashboard/app.py
 
 1. **Check text** — paste text, pick the checkpoint (user input, tool
    output, model output), see the verdict, the full reason trace, and
-   the matched spans highlighted in your text.
+   the matched spans highlighted in your text. For a BLOCK, the
+   counterfactual probe shows the minimal edit that lets it pass.
 2. **Memory gate** — screen a proposed long-term-memory write, with its
    provenance (user vs tool output vs web). Admits, quarantines, or
    rejects with reasons.
@@ -28,4 +29,7 @@ streamlit run dashboard/app.py
 ## Tests
 
 `tests/test_dashboard_helpers.py` covers the helper functions (the
-dashboard logic) without needing Streamlit.
+dashboard logic) without needing Streamlit;
+`tests/test_dashboard_app.py` runs the real app with AppTest (0
+exceptions, probe section included) and is skipped when Streamlit is
+not installed.
